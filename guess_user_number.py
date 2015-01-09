@@ -4,7 +4,7 @@ comp= randint(2,999)
 low = 0
 high = 1000
 while user != comp:
-	comp = randint(low,high)
+	comp = (low + high) / 2
 	print "secret number: " + str(user)
 	print "the guess is: " + str(comp)
 	if comp > user:
