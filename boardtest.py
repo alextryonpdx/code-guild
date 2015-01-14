@@ -94,24 +94,31 @@ def place_ships():
 		@ship_length int -> the length of the ship from the ships dictionary
 		@orientation str -> the direction the boat is heading
 		"""
-		board[bow[0]][bow[1]] = "start"
-		while ship_length != 0:
-			# establish bow position
-			# draw incremented ship position
-			board[bow[0]][bow[1]] = "ship"
-			# check orientation
-			# increment board position
-			if orientation == "E":
-				bow[1] += 1
-			elif orientation == "W":
-				bow[1] -= 1
-			elif orientation == "N":
-				bow[0] -= 1
-			elif orientation == "S":
-				bow[0] += 1
-			# decrement ship length after marking position
-			ship_length -= 1
-		
+
+		if board[bow[0]][bow[1]] == "ship":
+			print "Your ships cannot overlap"
+			print_board()
+			print "%s, %s spaces." %(ship, ships[ship])
+			assign_ship()
+		else: 
+			board[bow[0]][bow[1]] = "start"
+			while ship_length != 0:
+				# establish bow position
+				# draw incremented ship position
+				board[bow[0]][bow[1]] = "ship"
+				# check orientation
+				# increment board position
+				if orientation == "E":
+					bow[1] += 1
+				elif orientation == "W":
+					bow[1] -= 1
+				elif orientation == "N":
+					bow[0] -= 1
+				elif orientation == "S":
+					bow[0] += 1
+				# decrement ship length after marking position
+				ship_length -= 1
+			
 	
 
 
@@ -127,12 +134,16 @@ def place_ships():
 	
 	for ship in ships:
 		print("get ready to place your ship")
+		print_board()
 		print "%s, %s spaces." %(ship, ships[ship])
 #	board[row][column] = "ship"
 #	return draw_ship(int value)
 		assign_ship()			
-	
-place_ships()
-print board
+def print_board():
+	for x in range(10):
+		print board[x]
 
-# print board
+place_ships()
+print_board()
+
+# print_board()
