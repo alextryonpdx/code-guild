@@ -1,5 +1,6 @@
 from random import randint
-word_list = ['cat', 'dog', 'goose', 'fire', 'bulldozer']
+word_list = ['cat', 'dog', 'goose', 'fire', 'bulldozer', 'alfalfa', 'myth', 'website',
+             'grapes', 'spider', 'fables']
 display = []
 hidden = []
 correct_guesses = []
@@ -64,11 +65,10 @@ def check_guess(guess, secret_word):
             correct_guesses.append(guess)
             l += 1
             print display
-#   need to find a place for an endgame function in case of win
-#            if " - " not in hidden[0, len(hidden)]:
-#               win_game(secret_word)
         else:
             l += 1
+    if " - " not in display:
+        win_game(secret_word)
     if guess not in hidden:
         if guess not in wrong_guesses:
 # create a variable to move along ascii hangman art
@@ -93,7 +93,7 @@ def end_game(secret_word):
     if again == 'q':
         quit()
     else:
-        game_play()
+        word_select()
 
 def win_game(secret_word):
     print "\n" * 10
@@ -102,7 +102,7 @@ def win_game(secret_word):
     if again == 'q':
         quit()
     else:
-        game_play()
+        word_select()
 
 
 word_select()
