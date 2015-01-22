@@ -47,25 +47,30 @@ class ContactList(object):
         new_contact.__str__()
         confirm = raw_input("Save new contact? y/n ")
         if confirm == "y":
-            import pickle
+
             open_contacts = open("contacts.pk1", "wb")
             pickle.dump(self.contact_list, open_contacts)
-        # else: send to menu
+        else:
+            back_to_menu = raw_input("enter to continue")
+            menu()
 
 # pulls data from save file and populates contact list
     def load_contacts(self):
-        import pickle
+
         open_contacts = open("contacts.pk1", "rb")
         saved_contacts = pickle.load(open_contacts)
         self.contact_list = saved_contacts
         return self.contact_list
      #   return saved_contacts
 
+    def save_contacts(self):
+        pickle.dump(self.contact_list, open("contacts.pk1", "wb"))
 
     def view_contacts(self):
-        ContactList.load_contacts(self)
+#        ContactList.load_contacts(self)
         for item in self.contact_list:
             self.contact_list[item].__str__()
+
      #   self.contact_list = saved_contacts
       #  for item in self.contact_list:
       #  self.contact_list.__str__
@@ -73,16 +78,47 @@ class ContactList(object):
 # search currently requires exact match to pull contact
 # having trouble iterating through contacts via keys in ContactList dict
 # WHY!?!?!?!?
+
     def search(self):
-        ContactList.load_contacts(self)
+#        ContactList.load_contacts(self)
         search_name = raw_input("Who are you searching for?")
         print search_name
+      #  for key in self.contact_list:
         if search_name in self.contact_list:
             self.contact_list[search_name].__str__()
-            searched = self.contact_list[search_name]
-            global searched
         else:
-            pass
+            print "No contact found by that name."
+            search_again = raw_input("Would you like to search again? y/n ")
+            if search_again.lower() == "y":
+                self.search()
+            else:
+                back_to_menu = raw_input("enter to continue")
+                menu()
+
+    def erase_contact(self):
+#        ContactList.load_contacts(self)
+        erase_name = raw_input("Which contact would you like to erase?")
+        print erase_name
+        if erase_name in self.contact_list:
+            self.contact_list[erase_name].__str__()
+            erasure = self.contact_list[erase_name]
+            confirm_erase = raw_input("Would you like to erase this contact? y/n")
+            if confirm_erase == "y":
+
+                open_contacts = open("contacts.pk1", "wb")
+                del self.contact_list[erase_name]
+                pickle.dump(self.contact_list, open("contacts.pk1", "wb"))
+                self.view_contacts()
+                back_to_menu = raw_input("enter to continue")
+                menu()
+            else:
+                self.view_contacts()
+                back_to_menu = raw_input("enter to continue")
+                menu()
+        else:
+            self.view_contacts()
+
+
        # for item in self.contact_list:
         #    if search_name in self.contact_list[item]:
          #       self.contact_list[item].__str__()
@@ -109,15 +145,44 @@ class ContactList(object):
 # who = raw_input("what is the search name?")
 # if first_or_last == first:
     #
+import pickle
+def menu():
+    test_contacts = ContactList()
+    test_contacts.load_contacts()
+    print "1. View Contacts"
+    print "2. Search Contacts"
+    print "3 Add a Contact"
+    print "4 Delete a Contact"
+    print "5. Save and Exit"
+    menu_choice = raw_input("select an option by number: ")
+    if menu_choice == "1":
+        test_contacts.view_contacts()
+    if menu_choice == "2":
+        test_contacts.search()
+    if menu_choice == "3":
+        test_contacts.add_contact()
+    if menu_choice == "4":
+        test_contacts.erase_contact()
+    if menu_choice == "5":
+        if raw_input("are you sure? y/n") == "y":
+            test_contacts.save_contacts()
+            exit()
+        else:
+            menu()
+    else:
+        menu()
 
-
-
+menu()
 # testing function-calls and a loop for some other tests.
 
-test_contacts = ContactList()
-
+#test_contacts = ContactList()
+#test_contacts.load_contacts()
+#test_contacts.view_contacts()
+#test_contacts.add_contact()
+#test_contacts.add_contact()
+#test_contacts.erase_contact()
 # when sending "searched" variable to global, it causes problems because duh
-searched = ""
+# searched = ""
 
 #test_contacts.add_contact()
 #test_contacts.load_contacts()
@@ -127,4 +192,4 @@ searched = ""
     #test_contacts.add_contact()
   #  test_contacts.view_contacts()
  #   x += 10
-test_contacts.erase()
+ #  test_contacts.erase()
