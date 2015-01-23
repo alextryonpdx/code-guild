@@ -38,8 +38,6 @@ class Contact(object):
                   self.email, self.address)
 
 
-
-
 class ContactList(object):
     """
     ContactList class responsible for bulk of functionality:
