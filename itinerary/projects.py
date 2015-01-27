@@ -10,6 +10,8 @@ create overall menu
 user input control function
 """
 
+import getpass
+
 # defines Project class as a name and an unknown number of item arguments
 class Project(object):
     def __init__(self, project_name, *args):
@@ -29,7 +31,11 @@ class Project(object):
             print "%s. %s" %(x, items)
             x += 1
 
-# adds new list items by appending self.args list
+    # adds new list items by appending self.args list
+    # to do:
+    # combine add-item with view items so "if" string is blank, return to menu
+    #   if string not blank, add to list
+    # even better: create GUI for full list manipulation functionality
     def add_item(self):
         self.__str__()
         new_item = raw_input("Enter item to add: ")
@@ -91,6 +97,9 @@ class ProjectList(object):
         for list in self.args:
             print list.project_name
 
+    # prints list of projects
+    # prompts user to select project to inspect
+    # sends user to project-specific menu
     def go_to_list(self):
         self.__str__()
         list_choice = raw_input("which list would you like to use?" )
@@ -104,15 +113,23 @@ class ProjectList(object):
             print "No such list. Try again..."
             self.go_to_list()
 
+    # removes an entire project from project list
+    # uses search function and remove() function to remove item
     def delete_list(self):
         self.__str__()
         list_choice = raw_input("which list would you like to erase?" )
         for list in self.args:
             if list.project_name == list_choice:
-                print "ok"
+            #    print "ok"
                 # need to remove list
-                list.project_name
+                self.args.remove(list)
+            #    list.project_name.__str__()
                 self.__str__()
+
+    def create_list(self):
+        new_list = raw_input("What would you like to name your new project? ")
+        new_list = Project(str(new_list))
+        new_list.project_menu(self)
 
 # update formatting of Project instance to be created
 # match with delete function
@@ -120,6 +137,77 @@ class ProjectList(object):
 #        project_name = raw_input("What is the name of your project? ")
 #        project_name = Project(project_name)
 #        project_name.__str__()
+class User(object):
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+    def create_project_list(self):
+        user_name = raw_input("what is your username? ")
+        user_name = ProjectList()
+        user_name.create_list()
+
+""" this function has been relocated to userlist class
+    def new_user():
+        username = raw_input("new username: ")
+        password = getpass.getpass("new password: ")
+        confirm_password = getpass.getpass("confirm password: ")
+        while password != confirm_password:
+            print "re-enter your password, there was a problem with confirmation"
+            password = getpass.getpass("new password: ")
+            confirm_password = getpass.getpass("confirm password: ")
+        else:
+            username = User(username, password)
+            # username.create_project_list()
+"""
+
+
+class UserList(object):
+    def __init__(self, *args):
+        self.args = []
+        for item in args:
+            self.args.append(item)
+
+    def __str__(self):
+        for user in self.args:
+            print user.username
+            print user.password
+
+    def log_in(self):
+        self.__str__()
+        user_login = raw_input("enter username: ")
+        for user in self.args:
+            if user.username == user_login:
+                print "ok"
+                password = getpass.getpass("enter password: ")
+                if password == user.password:
+                    user.create_project_list()
+            else:
+                pass
+
+    def new_user(self):
+        username = raw_input("new username: ")
+        for user in self.args:
+            if username == user.username:
+                print "there is already an account with that name."
+                self.new_user()
+            else:
+                pass
+        else:
+            password = getpass.getpass("new password: ")
+            confirm_password = getpass.getpass("confirm password: ")
+            while password != confirm_password:
+                print "re-enter your password, there was a problem with confirmation"
+                password = getpass.getpass("new password: ")
+                confirm_password = getpass.getpass("confirm password: ")
+            else:
+                username = User(username, password)
+                self.args.append(username)
+                self.__str__()
+                # username.create_project_list()
+
+def main_menu():
+    main.log_in()
 
 
 
@@ -127,8 +215,12 @@ test_project = Project("test", 'one', "two", "three")
 test_list = Project("list", "first", "second", "third")
 
 TEST = ProjectList(test_project, test_list)
-
-TEST.delete_list()
+alex = User(username="alex", password="pw123")
+test = User(username="test", password="test")
+main = UserList(alex, test)
+# alex.create_project_list()
+main.new_user()
+# TEST.create_list()
 # TEST.create_list()
 #TEST.__str__()
 # print TEST
