@@ -15,6 +15,7 @@ class Project(object):
     def __init__(self, project_name, *args):
         self.project_name = project_name
         self.args = []
+        self.project = {project_name: self.args}
         for arg in args:
             self.args.append(arg)
 
@@ -71,25 +72,52 @@ class Project(object):
             self.project_menu()
 
 
-"""
+
 class ProjectList(object):
 
     def __init__(self, *args):
-        self.args = {}
+        self.args = []
         for item in args:
-            self.args[item] = item
+            self.args.append(item)
 
+# prints the name of all project lists (keys)
     def __str__(self):
-        for item in self.args:
-            print item
+        for list in self.args:
+            print list.project_name
+
+    def go_to_list(self):
+        self.__str__()
+        list_choice = raw_input("which list would you like to use?" )
+        for list in self.args:
+            if list.project_name == list_choice:
+                print "ok"
+                list.project_menu()
+            else:
+                pass
+        else:
+            print "No such list. Try again..."
+            self.go_to_list()
+
+
+#    def create_list(self):
+#        project_name = raw_input("What is the name of your project? ")
+#        project_name = Project(project_name)
+#        project_name.__str__()
 
 
 
 test_project = Project("test", 'one', "two", "three")
 test_list = Project("list", "first", "second", "third")
 
-test_ProjectList = ProjectList(test_project, test_list)
-test_ProjectList.__str__()
+TEST = ProjectList(test_project, test_list)
+
+TEST.go_to_list()
+# TEST.create_list()
+#TEST.__str__()
+# print TEST
+#TEST.__str__()
+
+
 #test_project.__str__()
 #test_project.add_item()
 #test_project.__str__()
@@ -99,4 +127,3 @@ test_ProjectList.__str__()
 #test_project.__str__()
 #test_project.project_menu()
 
-"""
