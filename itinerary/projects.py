@@ -50,12 +50,14 @@ class Project(object):
         self.args[to_edit - 1] = edited_item
 
 # menu function for single project list
-    def project_menu(self):
+# option 5 needs update
+    def project_menu(self, *args):
         print "what would you like to do with this project?"
         print "1. add an item"
         print "2. edit an item"
         print "3. remove an item"
         print "4. view your list"
+        print "5. return to project list"
         project_menu_choice = int(raw_input("... "))
         if project_menu_choice == 1:
             self.add_item()
@@ -67,6 +69,10 @@ class Project(object):
             self.__str__()
             menu = raw_input("press enter to continue")
             self.project_menu()
+        # if 5 return to projectlist menu
+        # currently returns to display list
+        if project_menu_choice == 5:
+            args.__str__()
         else:
             print "you made an improper selection"
             self.project_menu()
@@ -90,15 +96,26 @@ class ProjectList(object):
         list_choice = raw_input("which list would you like to use?" )
         for list in self.args:
             if list.project_name == list_choice:
-                print "ok"
-                list.project_menu()
+                # print "ok"
+                list.project_menu(self)
             else:
                 pass
         else:
             print "No such list. Try again..."
             self.go_to_list()
 
+    def delete_list(self):
+        self.__str__()
+        list_choice = raw_input("which list would you like to erase?" )
+        for list in self.args:
+            if list.project_name == list_choice:
+                print "ok"
+                # need to remove list
+                list.project_name
+                self.__str__()
 
+# update formatting of Project instance to be created
+# match with delete function
 #    def create_list(self):
 #        project_name = raw_input("What is the name of your project? ")
 #        project_name = Project(project_name)
@@ -111,7 +128,7 @@ test_list = Project("list", "first", "second", "third")
 
 TEST = ProjectList(test_project, test_list)
 
-TEST.go_to_list()
+TEST.delete_list()
 # TEST.create_list()
 #TEST.__str__()
 # print TEST
