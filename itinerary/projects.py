@@ -97,10 +97,13 @@ class Project(object):
     def __str__(self):
         x = 1
         print self.project_name
-        for items in self.args:
-            print "%s. %s" %(x, items.task)
-            items.__str__()
-            x += 1
+        if len(self.args) > 0:
+            for items in self.args:
+                print "%s. %s" %(x, items.task)
+                items.__str__()
+                x += 1
+        else:
+            print "empty"
     """
     # adds new list items by appending self.args list
     # to do:
@@ -216,7 +219,7 @@ class Project(object):
         # if 5 return to projectlist menu
         # currently returns to display list
         if project_menu_choice == 5:
-            args.__str__()
+
         if project_menu_choice in range(0, 6) is False:
             print "you made an improper selection"
             self.project_menu()
@@ -227,7 +230,8 @@ class Project(object):
 
 class ProjectList(object):
 
-    def __init__(self, *args):
+    def __init__(self, username, *args):
+        self.username = username
         self.args = []
         for item in args:
             self.args.append(item)
@@ -252,7 +256,8 @@ class ProjectList(object):
         else:
             print "No such list. Try again..."
             self.go_to_list()
-
+# todo      pass username, then projectslist name, then project name
+# todo                           down menu chain to allow fro return
     # removes an entire project from project list
     # uses search function and remove() function to remove item
     def delete_list(self):
@@ -269,9 +274,24 @@ class ProjectList(object):
     # this function creates Project class instance (single to-do list)
     # after instance initialization, user enters project-menu
     def create_list(self):
-        new_list = raw_input("What would you like to name your new project? ")
-        new_list = Project(str(new_list))
-        new_list.project_menu(self)
+        project_name = raw_input("What would you like to name your new project? ")
+        # new_list = Project(str(new_list))
+        # new_list.project_menu(self)
+        project_name = Project(project_name)
+        self.args.append(project_name)
+        project_name.project_menu()
+
+    def project_list_menu(self):
+        print "1. new project"
+        print "2. view projects"
+        print "3. select a project"
+        choice = raw_input("make a selection: ")
+        if int(choice) == 1:
+            self.create_list()
+        if int(choice) == 2:
+            self.__str__()
+        if int(choice) == 3:
+            self.go_to_list()
 
 
 # update formatting of Project instance to be created
@@ -286,30 +306,20 @@ class ProjectList(object):
 # should create empty instances for child classes (ProjectList, Calendar, etc)
 # should house user-menu to send to sub-functionality-specific menus
 class User(object):
-    def __init__(self, username, password):
+    def __init__(self, username, password, projects):
         self.username = username
         self.password = password
+        self.projects = projects
+        # self.create_project_list(username)
 
-    # allows user to create a new ProjectList class instance
-    # should be an automatic creation at User class initialization
-    def create_project_list(self):
-        user_name = raw_input("what is your username? ")
-        user_name = ProjectList()
-        user_name.create_list()
-
-    """ this function has been relocated to userlist class
-    def new_user():
-        username = raw_input("new username: ")
-        password = getpass.getpass("new password: ")
-        confirm_password = getpass.getpass("confirm password: ")
-        while password != confirm_password:
-            print "re-enter your password, there was a problem with confirmation"
-            password = getpass.getpass("new password: ")
-            confirm_password = getpass.getpass("confirm password: ")
-        else:
-            username = User(username, password)
-            # username.create_project_list()
-    """
+    # main menu for individual user
+    def user_menu(self):
+        print "1. projects\n" \
+              "2. calendar\n" \
+              "3. contacts"
+        choice = raw_input("selection: ")
+        if int(choice) == 1:
+            self.projects.project_list_menu()
 
 
 class UserList(object):
@@ -324,6 +334,7 @@ class UserList(object):
         for user in self.args:
             print user.username
             print user.password
+            #print user.projects.project_name
 
     # FUNCTION CHECKS FOR MATCHED USERNAME AND PASSWORD PAIR
     # IF MATCHED, SEND USER TO USER-SPECIFIC MENU
@@ -336,8 +347,7 @@ class UserList(object):
                 print "ok"
                 password = getpass.getpass("enter password: ")
                 if password == user.password:
-                    # SEND USER TO MAIN MENU
-                    user.create_project_list()
+                    user.user_menu()
             else:
                 pass
 
@@ -360,43 +370,47 @@ class UserList(object):
             confirm_password = getpass.getpass("confirm password: ")
 
         else:
-            username = User(username, password)
+            projects = ProjectList(username)
+            # contacts = ContactBook(username)
+            # appointments = AppontmentBook(username)
+            username = User(username, password, projects)
             self.args.append(username)
             self.__str__()
             print "New user account created."
-            print "enter 1 to login"
-            self.user_menu()
+            print "please login"
+            self.start_menu()
 
     # TOP LOGIN MENU
     #SENDS USER TO LOGIN OR CREATE USER FUNCTION
-    def user_menu(self):
+    def start_menu(self):
         print "1. login"
         print "2. new user"
-        main_menu_choice = raw_input("enter selection: ")
-        if int(main_menu_choice) == 1:
+        start_menu_choice = raw_input("enter selection: ")
+        if int(start_menu_choice) == 1:
             self.log_in()
-        if int(main_menu_choice):
+        if int(start_menu_choice):
             self.new_user()
         else:
             print "improper selection."
             print "try again"
-            self.user_menu()
+            self.start_menu()
 
 one = ProjectItem("one", complete = True)
 two = ProjectItem("two")
 three = ProjectItem("three")
-
+#projects1 = ProjectList(alex)
+#projects2 = ProjectList(test)
 test_project = Project("test", one, two, three)
 test_list = Project("list", "first", "second", "third")
 
 TEST = ProjectList(test_project, test_list)
-alex = User(username="alex", password="pw123")
-test = User(username="test", password="test")
-main = UserList(alex, test)
-test_project.project_menu()
+#alex = User(username="alex", password="pw123", projects=ProjectList(alex))
+#test = User(username="test", password="test", projects=ProjectList(test))
+main = UserList()
+# test_project.project_menu()
 # one.task_complete()
 # alex.create_project_list()
-# main.user_menu()
+main.start_menu()
 # TEST.create_list()
 # TEST.create_list()
 #TEST.__str__()
