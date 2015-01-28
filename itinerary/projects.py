@@ -35,35 +35,6 @@ class ProjectItem(object):
             else:
                 pass
 
-    # method relocated to project class
-    # incorporated into end of ProjectList instance initialization
-    """
-    def add_to_item(self, project_menu_instance, task, due_date, complete, *contacts):
-        add_on = int(raw_input("would you like to: "
-                           "(1) assign a due date? "
-                           "(2) attach a contact to this task?"
-                           "(3) enter task as-is "))
-        if add_on == 1:
-            due_date = raw_input("when is this task due?")
-            # create event with title "project: task 'due'"
-            print "%s is due %s" % (task, due_date)
-            self.add_to_item(self, task, due_date, complete, *contacts)
-        if add_on == 2:
-            # print names of contacts
-            contact = raw_input("which contact would you like to attach? ")
-            # if item in list, print "contact attached to task"
-            # self.contacts.append(contact)
-            self.add_to_item(self, task, due_date, complete, *contacts)
-        if add_on == 3:
-            new_task = ProjectItem(task, due_date, complete, *contacts)
-            print "OK"
-            new_task.__str__()
-
-        else:
-            print "improper selection. try again."
-            add_to_item(self, task, due_date, complete, *contacts)
-    """
-
     # function to mark a task as complete
     # to be called in a task edit menu
     def task_complete(self):
@@ -73,15 +44,11 @@ class ProjectItem(object):
         # send back to project menu somehow.
         # maybe relocate entire function to project class
 
-    # maybe all functions should be in project class
-        # aside from init and str
+# maybe all functions should be in project class
+# aside from init and str
 
 
-
-
-# defines Project class as a name and an unknown number of item arguments
-# consider creating new class for project items with attributes such as:
-#               due date(tied to calendar), done(true/false), priority?
+# defines Project class as a name and an unknown number of projectitems (*args)
 class Project(object):
 
     def __init__(self, project_name, *args):
@@ -115,7 +82,7 @@ class Project(object):
         new_item = raw_input("Enter item to add: ")
         self.args.append(new_item)"""
 
-    def add_item(self):
+    def add_item(self, username, projects):
         task = raw_input("enter task: ")
         due_date = None
         complete = False
@@ -133,14 +100,13 @@ class Project(object):
             # create event with title "project: task 'due'"
             print "%s is due %s" % (task, due_date)
             # (self, task, due_date, complete, *contacts)
-
         if add_on == 2:
             # print names of contacts
             new_contact = raw_input("which contact would you like to attach? ")
             contacts.append(new_contact)
             new_task = ProjectItem(task, due_date, complete, *contacts)
             self.args.append(new_task)
-            self.project_menu()
+            self.project_menu(username, projects)
             # if item in list, print "contact attached to task"
             # self.contacts.append(contact)
             # self.add_to_item(self, task, due_date, complete, *contacts)
@@ -149,7 +115,7 @@ class Project(object):
             print "OK"
             new_task.__str__()
             self.args.append(new_task)
-            self.project_menu()
+            self.project_menu(username, projects)
         #else:
          #   print "improper selection. try again."
          #   add_to_item(self, task, due_date, complete, *contacts)
@@ -161,7 +127,7 @@ class Project(object):
         del self.args[to_delete - 1]
 
     # user can select list item and replace it with new text
-    def edit_item(self):
+    def edit_item(self, username, projects):
         self.__str__()
         to_edit = int(raw_input("Which item would you like to edit? "))
         self.args[to_edit - 1].__str__()
@@ -191,13 +157,13 @@ class Project(object):
                 remove_contact = raw_input("Remove which contact?")
                 self.args[to_edit - 1].remove(remove_contact)
             if contact_to_do == 3:
-                self.edit_item()
+                self.edit_item(username, projects)
         if item_edit == 5:
-            self.project_menu()
+            self.project_menu(username, projects)
 
     # menu function for single project list
     # option 5 needs update
-    def project_menu(self, *args):
+    def project_menu(self, username, projects, *args):
         project_menu_choice = 0
         print "what would you like to do with this project?"
         print "1. add an item"
@@ -207,22 +173,22 @@ class Project(object):
         print "5. return to project list"
         project_menu_choice = int(raw_input("... "))
         if project_menu_choice == 1:
-            self.add_item()
+            self.add_item(username, projects)
         if project_menu_choice == 2:
-            self.edit_item()
+            self.edit_item(username, projects)
         if project_menu_choice == 3:
             self.delete_item()
         if project_menu_choice == 4:
             self.__str__()
             menu = raw_input("press enter to continue")
-            self.project_menu()
+            self.project_menu(username, projects)
         # if 5 return to projectlist menu
-        # currently returns to display list
+        # currently just a pass
         if project_menu_choice == 5:
-
+            projects.project_list_menu(username, projects)
         if project_menu_choice in range(0, 6) is False:
             print "you made an improper selection"
-            self.project_menu()
+            self.project_menu(username, projects)
 
 
 # class contains list of Project instances
@@ -244,20 +210,20 @@ class ProjectList(object):
     # prints list of projects
     # prompts user to select project to inspect
     # sends user to project-specific menu
-    def go_to_list(self):
+    def go_to_list(self, username, projects):
         self.__str__()
         list_choice = raw_input("which list would you like to use?" )
         for list in self.args:
             if list.project_name == list_choice:
                 # print "ok"
-                list.project_menu(self)
+                list.project_menu(self, username, projects)
             else:
                 pass
         else:
             print "No such list. Try again..."
-            self.go_to_list()
+            self.go_to_list(username, projects)
 # todo      pass username, then projectslist name, then project name
-# todo                           down menu chain to allow fro return
+# todo                           down menu chain to allow for return
     # removes an entire project from project list
     # uses search function and remove() function to remove item
     def delete_list(self):
@@ -273,25 +239,27 @@ class ProjectList(object):
 
     # this function creates Project class instance (single to-do list)
     # after instance initialization, user enters project-menu
-    def create_list(self):
+    def create_list(self, username, projects):
         project_name = raw_input("What would you like to name your new project? ")
         # new_list = Project(str(new_list))
         # new_list.project_menu(self)
         project_name = Project(project_name)
         self.args.append(project_name)
-        project_name.project_menu()
+        project_name.project_menu(username, projects)
 
-    def project_list_menu(self):
+    def project_list_menu(self, username, projects):
         print "1. new project"
         print "2. view projects"
         print "3. select a project"
         choice = raw_input("make a selection: ")
         if int(choice) == 1:
-            self.create_list()
+            self.create_list(username, projects)
         if int(choice) == 2:
             self.__str__()
+            move_on = raw_input("press enter to continue")
+            self.project_list_menu(username, projects)
         if int(choice) == 3:
-            self.go_to_list()
+            self.go_to_list(username, projects)
 
 
 # update formatting of Project instance to be created
@@ -313,13 +281,13 @@ class User(object):
         # self.create_project_list(username)
 
     # main menu for individual user
-    def user_menu(self):
+    def user_menu(self, username, projects):
         print "1. projects\n" \
               "2. calendar\n" \
               "3. contacts"
         choice = raw_input("selection: ")
         if int(choice) == 1:
-            self.projects.project_list_menu()
+            self.projects.project_list_menu(username, projects)
 
 
 class UserList(object):
@@ -347,7 +315,7 @@ class UserList(object):
                 print "ok"
                 password = getpass.getpass("enter password: ")
                 if password == user.password:
-                    user.user_menu()
+                    user.user_menu(user.username, user.projects)
             else:
                 pass
 
