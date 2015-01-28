@@ -35,18 +35,6 @@ class ProjectItem(object):
             else:
                 pass
 
-    # function to mark a task as complete
-    # to be called in a task edit menu
-    def task_complete(self):
-        self.complete = True
-        print self.task
-        self.__str__()
-        # send back to project menu somehow.
-        # maybe relocate entire function to project class
-
-# maybe all functions should be in project class
-# aside from init and str
-
 
 # defines Project class as a name and an unknown number of projectitems (*args)
 class Project(object):
@@ -96,10 +84,13 @@ class Project(object):
                            "(2) attach a contact to this task?"
                            "(3) enter task as-is "))
         if add_on == 1:
-            task.due_date = raw_input("when is this task due?")
-            # create event with title "project: task 'due'"
-            print "%s is due %s" % (task, due_date)
-            # (self, task, due_date, complete, *contacts)
+            due_date = raw_input("when is this task due?")
+            # create event with title "%s: %s is Due" %(project: task)
+            # give option to mark task as complete, run method in background
+            print "%s: due %s" % (task, due_date)
+            new_task = ProjectItem(task, due_date, complete, *contacts)
+            self.args.append(new_task)
+            self.project_menu(username, projects)
         if add_on == 2:
             # print names of contacts
             new_contact = raw_input("which contact would you like to attach? ")
@@ -125,9 +116,10 @@ class Project(object):
         self.__str__()
         to_delete = int(raw_input("Which item would you like to delete? "))
         del self.args[to_delete - 1]
+        self.project_menu(username, projects)
 
     # user can select list item and replace it with new text
-    def edit_item(self, username, projects):
+    def edit_item(self, username, projects, *project_name):
         self.__str__()
         to_edit = int(raw_input("Which item would you like to edit? "))
         self.args[to_edit - 1].__str__()
@@ -140,11 +132,14 @@ class Project(object):
         if item_edit == 1:
             edited_item = raw_input("Enter edited item: ")
             self.args[to_edit - 1].task = edited_item
+            self.project_menu(username, projects)
         if item_edit == 2:
             new_due = raw_input("When is this task due? ")
             self.args[to_edit - 1].due_date = new_due
+            self.project_menu(username, projects)
         if item_edit == 3:
-            self.args[to_edit - 1].task_complete()
+            self.args[to_edit - 1].complete = True
+            self.project_menu(username, projects)
         if item_edit == 4:
             print "1. add contact \n2. remove contact\n3. cancel"
             contact_to_do = int(raw_input("enter 1, 2 or 3: "))
@@ -245,7 +240,7 @@ class ProjectList(object):
         # new_list.project_menu(self)
         project_name = Project(project_name)
         self.args.append(project_name)
-        project_name.project_menu(username, projects)
+        project_name.project_menu(username, projects, project_name)
 
     def project_list_menu(self, username, projects):
         print "1. new project"
