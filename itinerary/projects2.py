@@ -192,6 +192,8 @@ def edit_task_menu(y, edit):
             else:
                 edit_task_menu(y, edit)
 
+
+"""
 #username.projects["projectname"].add_project()
 
 user = Projects()
@@ -209,3 +211,4 @@ user.create_task("school", "quiz")
 projects_menu()
 # user.add_project("school", new_task)
 
+"""
