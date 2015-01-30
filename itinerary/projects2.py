@@ -24,8 +24,6 @@ class Task(object):
             else:
                 pass
 
-    #def add_task(self, task):
-
 
 class Projects(object):
 
@@ -34,17 +32,15 @@ class Projects(object):
 
     # display project names
     def view_projects(self):
-        x = 1
         for item in self.projects:
-            print "%s. %s" % (x, item)
-            x += 1
+            print "%s" % item
 
     # shows detailed view of single project
     def view_project(self, project_name):
         print "* %s *" % project_name
         x = 1
         for item in self.projects[project_name]:
-            item.__str__()
+            print "%s. %s" % (x, item.task)
             x += 1
             if item.complete == True:
                 print "    *COMPLETE*"
@@ -87,22 +83,25 @@ class Projects(object):
 
     # remove contact from task
     def task_remove_contact(self, project_name, task, remove_contact):
-        self.projects[project_name][task].contacts.pop(remove_contact)
+        self.projects[project_name][task].contacts.remove(remove_contact)
 
 # returns project name
 def get_project():
     user.view_projects()
-    get = raw_input("Select a project by number: ")
+    get = raw_input("Select a project by name: ")
     return get
 
 # returns project name, task index (int)
-def get_task():
-    x = get_project()
-    user.view_project(x)
+def get_task(y=None):
+    if y:
+        pass
+    else:
+        y = get_project()
+    user.view_project(y)
     select_task = int(raw_input("select task by number"))
     select_task -= 1
     # print select_task, x
-    return x, select_task
+    return y, select_task
 
 
 def new_text():
@@ -147,8 +146,8 @@ def single_project_menu(y):
         new_task = raw_input("enter new task: ")
         user.create_task(y, new_task)
     if cmd == 2:
-        # get task
-        # edit task menu
+        y, edit = get_task(y)
+        edit_task_menu(y, edit)
         pass
     if cmd == 3:
         user.view_project(y)
@@ -156,11 +155,42 @@ def single_project_menu(y):
         remove_task(y, rem_task)
     if cmd == 4:
         user.view_project(y)
-
     if cmd == 5:
         projects_menu()
     else:
         print "try harder"
+
+def edit_task_menu(y, edit):
+    while True:
+        if len(user.projects) == 0:
+            print "nothing to see here"
+            single_project_menu(y)
+        else:
+            print "1. remove this task\n" \
+                  "2. change the due date for this task\n" \
+                  "3. add a contact to this task\n" \
+                  "4. remove a contact from this task\n" \
+                  "5. mark this task as COMPLETE\n" \
+                  "6. return to project menu"
+            cmd = int(raw_input("make a selection: "))
+            if cmd == 1:
+                user.remove_task(y, edit)
+                single_project_menu(y)
+            if cmd == 2:
+                new_due_date = raw_input("when is this task due? DD-MM-YY ")
+                user.due_task(y, edit, new_due_date)
+            if cmd == 3:
+                contact = raw_input("which contact would you like to add? ")
+                user.task_contact(y, edit, contact)
+            if cmd == 4:
+                contact = raw_input("remove which contact?")
+                user.task_remove_contact(y, edit, contact)
+            if cmd == 5:
+                user.complete_task(y, edit)
+            if cmd == 6:
+                single_project_menu(y)
+            else:
+                edit_task_menu(y, edit)
 
 #username.projects["projectname"].add_project()
 
@@ -178,3 +208,4 @@ user.create_task("school", "quiz")
 #user.view_project("school")
 projects_menu()
 # user.add_project("school", new_task)
+
