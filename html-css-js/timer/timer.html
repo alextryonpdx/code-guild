@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta-charset= 'utf-8'>
+	<title>TIMERtimeYOUREnext | ALEX TRYON</title>
+	<link href="normalize.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Oswald|Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href="timer.css" rel="stylesheet" type="text/css">
+</head>
+	<body>
+		<div id="visuals" class="panel">
+			<div id="countdown">
+				<p>
+				<span id="displayhr">00</span>:
+				<span id="displaymin">05</span>:
+				<span id="displaysec">49</span>
+				</p>
+			</div>
+			<div id="animation">
+				<img src="img/vis-1.gif" style="max-width:100%"/>
+			</div>
+		</div>
+
+		<div id="controls" class="panel">
+			<button id="startbutt">START</button>
+			<button id="pausebutt">PAUSE</button>
+			<button id="stopbutt">STOP</button>
+			<button id="loopbutt">LOOP</button>
+		</div>
+
+		<div id="setTime" class="panel">
+			<button id="one">1 Minute</button>
+			<button id="five">5 Minutes</button>
+			<button id="fifteen">15 Minutes</button>
+			<button id="twentyfive">25 Minutes</button>
+			<button id="hour">60 Minutes</button>
+		</div>
+
+		<div id="customTime" class="panel">
+		<!--TRY to display and set default value 0... OUTPUT type-->
+			<input type="range" min=0 max=23 step=1 name="hour"> 
+			<input type="number" min=0 max=59 step=1 name="minute">
+			<input type="number" min=0 max=59 step=1 name="second">
+		</div>
+	</body>
+</html>

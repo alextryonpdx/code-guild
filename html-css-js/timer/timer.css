@@ -1,0 +1,103 @@
+container {
+	max-width: 960px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.panel {
+	display: inline-block;
+	width: 40%;
+	height: 40%;
+	max-height: 40%;
+	margin: 1% 1%;
+	padding: 0.5% 0.5% 0.75%;
+	background-color: #60b9ce;
+	border: 4px solid #206676;
+	border-radius: 6px;
+}
+
+/* single column at screen-width 450px */
+@media only screen and (max-width:450px) {
+	.panel {
+		display: block;
+		width: 90%;
+		margin: 1% 5%;
+
+	}
+}
+
+#visuals {
+	/*padding: .33em;*/
+
+}
+
+#visuals div{
+	width: 80%;
+	margin: 1.25em auto;
+}
+
+#countdown {
+	background-color: #04819e;
+	border: 4px solid #015367;
+	font-size: 3em;
+	text-align: center;
+	color: white;
+	font-family: 'Oswald', sans-serif;
+}
+
+#animation {
+	width: 80%;
+	margin: 1.25em auto;
+	height: 2.5em;
+}
+
+#controls {
+
+}
+
+button {
+	color: white;
+	width: 80%;
+	display: block;
+	border-radius: 4px;
+	margin: .5em auto;
+	padding: 1em;
+	font-weight: bold;
+	font-size: 1.25em;
+
+}
+
+#startbutt {
+	background-color: #00bf32;
+	border: 4px solid #007c21;
+}
+
+#pausebutt {
+	background-color: #ff7f00;
+	border: 4px solid #a65200
+}
+
+#stopbutt {
+	background-color: #ff1e00;
+	border: 4px solid #a61300
+}
+
+#loopbutt {
+	background-color: #04819e;
+	border: 4px solid #015367;
+}
+
+#setTime {
+
+}
+
+#customTime input {
+	color: white;
+	width: 80%;
+	display: block;
+	border-radius: 4px;
+	margin: .5em auto;
+	padding: 1em;
+	font-weight: bold;
+	font-size: 1.25em;
+}
+
