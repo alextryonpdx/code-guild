@@ -7,6 +7,8 @@ also first attempt at pickle module. seems straightforward
 
 To-Do manage user experience, repetitive input requests, input controls, etc
       clean up overall display. uuuuuuuugly
+
+      look into COLORAMA module for customizing display
 """
 
 import pickle
@@ -52,6 +54,7 @@ class ContactList(object):
     # contact is created then stored by first name
     # TO-DO set "n/a" as default value for every input besides name
     # TO-Do INPUT CONTROL!!!!!!!
+    # cool input control = check for digit (don't convert to int)
     def add_contact(self):
         first_name = raw_input("First Name: ")
         last_name = raw_input("Last Name: ")
@@ -127,11 +130,11 @@ class ContactList(object):
                 del self.contact_list[erase_name]
                 pickle.dump(self.contact_list, open("contacts.pk1", "wb"))
                 self.view_contacts()
-                back_to_menu = raw_input("enter to continue")
+                # back_to_menu = raw_input("enter to continue")
                 menu()
             else:
                 self.view_contacts()
-                back_to_menu = raw_input("enter to continue")
+                # back_to_menu = raw_input("enter to continue")
                 menu()
         else:
             self.view_contacts()

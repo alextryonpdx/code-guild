@@ -125,8 +125,8 @@ def p2_view_shots():
 		# prompt "ready Player 1 press any key"
 		# p1_menu()
 
-def p1_check_sink():
-	if 'b' or 'c' or 'd' or 's' or 'i' in ship_board2:
+def playercheck_sink():
+	while 'b' or 'c' or 'd' or 's' or 'i' in ship_board2:
 		if 'b' not in ship_board2:
 			print "You've sunk their BATTLESHIP"
 		if 'c' not in ship_board2:
@@ -138,7 +138,7 @@ def p1_check_sink():
 		if 'i' not in ship_board2:
 			print "You've sunk their INTERCEPTOR"
 		else:
-			p1_take_shot()
+			(player)_menu()
 	else:
 		print "Player 1 wins"
 

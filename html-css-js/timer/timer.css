@@ -4,11 +4,12 @@ container {
 }
 
 .panel {
-	display: inline-block;
+	display: block;
 	width: 40%;
-	height: 40%;
 	max-height: 40%;
-	margin: 1% 1%;
+	max-height:40%;
+	float: left;
+	margin: 1% 2%;
 	padding: 0.5% 0.5% 0.75%;
 	background-color: #60b9ce;
 	border: 4px solid #206676;
@@ -25,15 +26,11 @@ container {
 	}
 }
 
-#visuals {
-	/*padding: .33em;*/
-
-}
-
-#visuals div{
+#visuals div {
 	width: 80%;
-	margin: 1.25em auto;
+	margin: 7% auto;
 }
+
 
 #countdown {
 	background-color: #04819e;
@@ -42,11 +39,12 @@ container {
 	text-align: center;
 	color: white;
 	font-family: 'Oswald', sans-serif;
+
 }
 
-#animation {
-	width: 80%;
-	margin: 1.25em auto;
+#animation img {
+	display: block;
+	margin: 1em auto;
 	height: 2.5em;
 }
 
@@ -86,8 +84,13 @@ button {
 	border: 4px solid #015367;
 }
 
-#setTime {
-
+#presetTime button {
+	background-color: #04819e;
+	color: white;
+	text-align: center;
+	width: 45%;
+	margin: 2.5%;
+	float: left;
 }
 
 #customTime input {
@@ -99,5 +102,10 @@ button {
 	padding: 1em;
 	font-weight: bold;
 	font-size: 1.25em;
+	background-color: #04819e;
+	text-align: center;
 }
 
+#displayhr:hover {
+	color: red;
+}

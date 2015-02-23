@@ -36,7 +36,7 @@ class User(object):
             elif cmd == 3:
                 projects_menu(user)
             elif cmd == 4:
-                pass # pickle shit here
+                pass # pickle here
             elif cmd == 5:
                 exit()
             else:

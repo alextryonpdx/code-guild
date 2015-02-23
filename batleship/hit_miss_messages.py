@@ -1,11 +1,11 @@
 def miss_message():
 	from random import randint
 	miss_scripts = [
-		"Captain... I think we hit a fish",
-		"Maybe the torpedo was caught in a cross-current.",
-		"You'll get 'em next time.",
-		"KER-PLUNK.",
-		"Poseidon is not on your side.",
+		"MISS: Captain... I think we hit a fish",
+		"MISS: Maybe the torpedo was caught in a cross-current.",
+		"MISS: You'll get 'em next time.",
+		"MISS: KER-PLUNK.",
+		"MISS: Poseidon is not on your side.",
 
 	]
 	script = randint(0, len(miss_scripts) - 1)
@@ -14,12 +14,12 @@ def miss_message():
 def hit_message():
 	from random import randint
 	hit_scripts = [
-		"BOOM!",
-		"You got 'em",
-		"That one did some real damage",
-		"What a shot!",
-		"You smoked 'em, Captain.",
-		"Welcome to erf."
+		"HIT! HIT! BOOM!",
+		"HIT: You got 'em!",
+		"HIT: That one did some real damage!",
+		"HIT: What a shot!",
+		"HIT: You smoked 'em, Captain!",
+		"HIT: Welcome to erf!"
 	]
 	script = randint(0, len(hit_scripts) - 1)
 	print hit_scripts[script]

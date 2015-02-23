@@ -11,6 +11,13 @@ user input control function
 """
 import getpass
 
+# ToDo -setup pickle. make it as general as possible
+# ToDo -some input control
+# ToDo returning to project-list-menu doesnt work if you move in and out of list >once
+#       - maybe throwing username into Project will help
+#       - add project_name/username to projectItem?
+#       - create a ProjectItem/Project method to return to project_list_menu
+
 class ProjectItem(object):
     def __init__(self, task, due_date=None, complete=False, *contacts):
         self.task = task
@@ -39,8 +46,9 @@ class ProjectItem(object):
 # defines Project class as a name and an unknown number of projectitems (*args)
 class Project(object):
 
-    def __init__(self, project_name, *args):
+    def __init__(self, project_name, username, *args):
         self.project_name = project_name
+        self.username = username
         self.args = []
         self.project = {project_name: self.args}
         for arg in args:
@@ -112,7 +120,7 @@ class Project(object):
          #   add_to_item(self, task, due_date, complete, *contacts)
 
     # deletes list item
-    def delete_item(self):
+    def delete_item(self, username, projects):
         self.__str__()
         to_delete = int(raw_input("Which item would you like to delete? "))
         del self.args[to_delete - 1]
@@ -156,6 +164,9 @@ class Project(object):
         if item_edit == 5:
             self.project_menu(username, projects)
 
+    def back_to_project_list(self, username, projects):
+        username.user_menu()
+
     # menu function for single project list
     # option 5 needs update
     def project_menu(self, username, projects, *args):
@@ -180,7 +191,7 @@ class Project(object):
         # if 5 return to projectlist menu
         # currently just a pass
         if project_menu_choice == 5:
-            projects.project_list_menu(username, projects)
+            ProjectList.project_list_menu(projects, username, projects)
         if project_menu_choice in range(0, 6) is False:
             print "you made an improper selection"
             self.project_menu(username, projects)
@@ -238,7 +249,7 @@ class ProjectList(object):
         project_name = raw_input("What would you like to name your new project? ")
         # new_list = Project(str(new_list))
         # new_list.project_menu(self)
-        project_name = Project(project_name)
+        project_name = Project(project_name, username)
         self.args.append(project_name)
         project_name.project_menu(username, projects, project_name)
 
@@ -389,4 +400,3 @@ main.start_menu()
 #test_project.edit_item()
 #test_project.__str__()
 #test_project.project_menu()
-

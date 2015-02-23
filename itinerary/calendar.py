@@ -59,9 +59,9 @@ class Event(object):
 
 
 
-#user = Date()
+user = Date()
 
-def date_menu(user):
+def date_menu():
     print(' %%% Appointment Book %%% ')
 
     def getdate():
@@ -77,43 +77,43 @@ def date_menu(user):
         return event
 
     while True:
-        print('\n\nadd, edit, delete, show, menu')
+        print('\n\nadd, edit, delete, show, cal, quit')
         cmd = raw_input('\n\n>>>>> ')
         
 
         if cmd == 'add':
             print('Add an event')
             date = getdate()
-            if date in user.datebook.date:
+            if date in user.date:
                 pass
             else:
-                user.datebook.adddate(date)
+                user.adddate(date)
             
-            user.datebook.date[date].addevent(gettime(), getevent())
+            user.date[date].addevent(gettime(), getevent())
 
 
         elif cmd == 'show':
-            user.datebook.showdays()
+            user.showdays()
             date = getdate()
             print('\n\n')
-            print(user.datebook.date[date].events)
+            print(user.date[date].events)
 
 
         elif cmd == 'delete':
-            user.datebook.showdays()
+            user.showdays()
             which = raw_input('Delete an entry or an entire day? entry/day >> ')
             if which == 'entry':
-                user.datebook.date[getdate()].delevent(gettime())
+                user.date[getdate()].delevent(gettime())
             else:
-                user.datebook.deldate(getdate())
+                user.deldate(getdate())
 
 
         elif cmd == 'edit':
-            user.datebook.showdays()
-            user.datebook.date[getdate()].editevent(gettime(), getevent())
+            user.showdays()
+            user.date[getdate()].editevent(gettime(), getevent())
 
             
-        elif cmd == 'menu':
-            user.main_menu(user)
+        elif cmd == 'quit':
+            exit()
 
 #date_menu()

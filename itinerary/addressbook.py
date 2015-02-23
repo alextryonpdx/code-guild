@@ -87,12 +87,12 @@ class Addressbook(object):
 
 
 
-def addr_menu(user):
+def addr_menu():
 
-   # user = Addressbook()
+    user = Addressbook()
     
 
-    def add_new(user):
+    def add_new():
         f = raw_input('\nEnter a first name >> ')
         l = raw_input('\nEnter a a last name >> ')
         p1 = raw_input('\nEnter a phone number >> ')
@@ -101,54 +101,53 @@ def addr_menu(user):
         ad = raw_input('\nEnter an address >> ')
         u = raw_input('\nEnter a url >> ')
 
-        user.contacts.addcontact(f, l, p1, p2, e, ad, u)
+        user.addcontact(f, l, p1, p2, e, ad, u)
 
 
 
-
-    def delete_entry(user):
-        user.contacts.listcontacts()
+    def delete_entry():
+        user.listcontacts()
         d = raw_input('\nEnter a person to delete >> ')
-        user.contacts.delete(d)
+        user.delete(d)
 
 
 
-    def edit_entry(user):
-        user.contacts.listcontacts()
+    def edit_entry():
+        user.listcontacts()
         name = raw_input('\nWho would you like to edit? >> ') 
         print('\n\nphone, phon2, email, address, url')       
         what = raw_input('\n\nWhat would you like to edit? >> ')    
         val = raw_input('\nWhat would you like to change it to? >> ')
 
-        user.contacts.edit(name, what, val)
+        user.edit(name, what, val)
 
 
 
-    def view_contact(user):
-        user.contacts.listcontacts()
+    def view_contact():
+        user.listcontacts()
         name = raw_input('\n\nWho would you like to view? >> ')
-        user.contacts.view(name)
+        user.view(name)
 
 
 
  
     while True:
-        print('\n\nEnter a command: add, edit, delete, view, list, showall, menu')
+        print('\n\nEnter a command: add, edit, delete, view, list, showall, quit')
         cmd = raw_input('\n\n>>>>> ')
         if cmd == 'add':
-            add_new(user)
+            add_new()
         elif cmd == 'delete':
-            delete_entry(user)
+            delete_entry()
         elif cmd == 'edit':
-            edit_entry(user)
+            edit_entry()
         elif cmd == 'view':
-            view_contact(user)
+            view_contact()
         elif cmd == 'list':
-             user.contacts.listcontacts()
+             user.listcontacts()
         elif cmd == 'showall':
-             user.contacts.showall()
-        elif cmd == 'menu':
-             user.main_menu(user)
+             user.showall()
+        elif cmd == 'quit':
+             exit()
         else:
             print('\n\nTRY HARDER\n\n')
 

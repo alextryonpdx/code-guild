@@ -3,17 +3,19 @@
 <head>
 	<meta-charset= 'utf-8'>
 	<title>TIMERtimeYOUREnext | ALEX TRYON</title>
-	<link href="normalize.css" rel="stylesheet" type="text/css">
+	<!--<link href="normalize.css" rel="stylesheet" type="text/css">-->
 	<link href='http://fonts.googleapis.com/css?family=Oswald|Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link href="timer.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="timer.js"></script>
 </head>
 	<body>
+	<form id="timerForm">
 		<div id="visuals" class="panel">
 			<div id="countdown">
 				<p>
 				<span id="displayhr">00</span>:
-				<span id="displaymin">05</span>:
-				<span id="displaysec">49</span>
+				<span id="displaymin">18</span>:
+				<span id="displaysec">45</span>
 				</p>
 			</div>
 			<div id="animation">
@@ -24,23 +26,29 @@
 		<div id="controls" class="panel">
 			<button id="startbutt">START</button>
 			<button id="pausebutt">PAUSE</button>
-			<button id="stopbutt">STOP</button>
+			<button type="reset" id="stopbutt">STOP</button>
 			<button id="loopbutt">LOOP</button>
 		</div>
 
-		<div id="setTime" class="panel">
+		<div id="presetTime" class="panel">
 			<button id="one">1 Minute</button>
 			<button id="five">5 Minutes</button>
 			<button id="fifteen">15 Minutes</button>
-			<button id="twentyfive">25 Minutes</button>
-			<button id="hour">60 Minutes</button>
+			<button id="thirty">30 Minutes</button>
+			<button id="onehour">1 Hour</button>
+			<button id="pomodoro">Pomodoro</button>
 		</div>
-
+		
 		<div id="customTime" class="panel">
-		<!--TRY to display and set default value 0... OUTPUT type-->
-			<input type="range" min=0 max=23 step=1 name="hour"> 
-			<input type="number" min=0 max=59 step=1 name="minute">
-			<input type="number" min=0 max=59 step=1 name="second">
+				
+		<!--TRY to display and set default value 0... OUTPUT type
+			explore other input types: (e.g. range, time) to avoid input control issues -->
+			<input type="number" min=0 max=23 step=1 id="hour" placeholder="HOURS"> 
+			<input type="number" min=0 max=59 step=1 id="minute" placeholder="MINUTES">
+			<input type="number" min=0 max=59 step=1 id="second" placeholder="SECONDS">
+			<input type="button" value="Set Timer" id="setTimer" onclick="customTime()">
 		</div>
+		</form>
+		
 	</body>
 </html>
