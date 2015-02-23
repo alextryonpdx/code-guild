@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>TIMER 2.0</title>
+		<link href="timer.css" rel="stylesheet">
+		<script src="timer1.js">
+		</script>
+	</head>
+	<body>
+		<audio id="marvin" src="marvin.m4a" loop="true" preload="auto"></audio>
+		<audio id="fly" src="fly.mp3" loop="false" preload="auto"></audio>
+		<audio id="spacejam" src="spacejam.mp3" loop="false" preload="auto"></audio>
+		<form id="customTime">
+		<div class="display" id="display">
+
+			<div class= placeholder>
+			</div>
+			<span id="disHour">00</span>:
+			<span id="disMin">00</span>:
+			<span id="disSec">00</span>
+		</div>
+		
+			<input type="number" id="userHour" name="userHour" placeholder="HOURS" class="numbers">
+			<input type="number" id="userMin" name="userMin" placeholder="MINUTES" class="numbers">
+			<input type="number" id="userSec" name="userSec" placeholder="SECONDS" class="numbers">
+			<input  type="button" id="submit" name="submit" value="Set Timer" class="button">
+			<input type="button" id="start" name="start" value="Start Timer" class="button">
+			<input type="button" id="stop" name="stop" value="Stop Timer" class="button">
+			<input type="button" id="clear" name="clear" value="Clear Timer" class="button">
+		</form>
+	</body>
+
+
+	<!---<iframe width="420" height="236.25" src="https://www.youtube.com/embed/1uYAHpdo5oA?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen id="lil" status:"hidden"></iframe>-->

@@ -1,0 +1,61 @@
+#calcform {
+	width:250px;
+	height: 220px;
+	border: 2px solid #181374;
+	background-color: #3f39a8;
+	border-radius: 4%;
+	font-weight: bold;
+}
+
+#total {
+	width:90%;
+	padding:3% 0;
+	border: 1px solid black;
+	margin: 5% 5%;
+	text-align: center;
+	font-weight: bold;
+	background-color: #817ccf;
+	border-radius: 2%;
+}
+.userinput {
+	width: 90%;
+	margin: 5px auto;
+}
+.userinput input {
+	text-align: center;
+	height: 50px;
+	width: 32%;
+	margin: 1% 0;
+	display: inline-block;
+	border: 1px solid black;
+	background-color: #fff63a;
+	border-radius: 2%;
+}
+
+#operation {
+	width: 20%;
+	text-align: center;
+	display: inline-block;
+	margin: auto 5%;
+}
+
+.buttons {
+	width: 100%;
+	margin: 1% 5%;
+}
+
+.buttons input {
+	position: relative;
+	width: 44%;
+	margin: 1% auto;
+	background-color: #817ccf;
+}
+
+.buttons input:hover {
+	background-color: #fff63a;
+}
+
+#resetform {
+	width: 90%;
+	position: relative;
+}

@@ -1,0 +1,86 @@
+
+.numbers {
+	width: 40%;
+	text-align: center;
+	display: block;
+	margin: .5em auto;
+	padding: .5em;
+}
+
+.display {
+	color: white;
+	font-family: "Arial", sans-serif;
+	font-weight: bold;
+	background: black;
+	text-align: center;
+	font-size: 2em;
+	width: 40%;
+	margin: 0 auto .5em;
+	padding: .5em;
+	-webkit-transition: width 1.5s;
+}
+
+.button {
+	display: block;
+	width: 40%;
+	font-family: "Arial", sans-serif;
+	font-weight: bold;
+	margin: .5em auto;
+	background-color: black;
+	color: white;
+	padding: .5em;
+	-webkit-transition: width .5s;
+}
+
+
+@media (max-width: 400px) {
+	.display {
+		font-size: 1.5em;
+	}
+
+	.customTime input {
+		font-size: .66em;
+	}
+}
+
+
+@media (max-width: 300px) {
+	.display {
+		font-size: 1em;
+	}
+
+
+	.customTime input {
+		font-size: .4em;
+	}
+}
+.display:hover {
+	width:	80%;
+}
+
+
+/*.button:hover {
+	width: 42.5%;
+}
+*/
+.wide {
+	width: 80%;
+}
+
+.red {
+	background: none;
+	background-color: red !important;
+}
+
+.jam {
+	background: url(jam.jpg) no-repeat;
+	background-size: 100%;
+}
+
+@media (min-width: 600px) {
+	.jam {
+		padding: 1em 0 2em 0;
+		margin: 10px auto 10px;
+	}
+
+}

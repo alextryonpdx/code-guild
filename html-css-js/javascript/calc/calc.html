@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Calculator</title>
+		<link href="calc2.css" rel="stylesheet">
+		<script src="calc.js">
+		</script>
+	</head>
+	<body>
+		<form id="calcform" name="calculator" method="post">
+			
+			<p id="total"><span id="result"> ... </span></p>
+
+			<div class="userinput">
+				<input type=text name="input_a" size=10 placeholder="#">
+				<p id="operation"><span id="operator">( )</span></p>
+				<input type=text name="input_b" size=10 placeholder="#">
+			</div>
+		
+			<div class="buttons">
+					
+					<input type="button" value="+" name="addbutton">
+					
+					<input type="button" value="-" name="subbutton">
+		
+					<input type="button" value="*" name="multbutton">
+
+					<input type="button" value="/" name="divbutton">
+		
+					<input id="resetform" type="reset" value="Clear" name="clearbutton">
+				
+			</div>
+			
+			<!--
+			<div class="numbutts">
+				<input type="button" value="0" name="zero">
+				<input type="button" value="9" name="nine">
+				<input type="button" value="8" name="eight">
+				<input type="button" value="7" name="seven">
+				<input type="button" value="6" name="six">
+				<input type="button" value="5" name="five">
+				<input type="button" value="4" name="four">
+				<input type="button" value="3" name="three">
+				<input type="button" value="2" name="two">
+				<input type="button" value="1" name="one">
+			</div>
+			-->
+		</form>
+	</body>
